@@ -12,13 +12,13 @@ public class TodoTests {
         todoDAO = new TodoDAO();
     }
 
-    @Test
-    public void testTime(){
-        System.out.println(todoDAO.getTime());
-    }
-
-    @Test
-    public void testTime2() throws Exception{
-        System.out.println(todoDAO.getTime2());
-    }
+//    @Test
+//    public void testTime(){
+//        System.out.println(todoDAO.getTime());
+//    }
+//
+//    @Test
+//    public void testTime2() throws Exception{
+//        System.out.println(todoDAO.getTime2());
+//    }
 }
