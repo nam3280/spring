@@ -13,8 +13,8 @@ public class testHikariCP {
 
         hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
         hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/ssgdatabase?serverTimezone=UTC");
-        hikariConfig.setUsername("");
-        hikariConfig.setPassword("");
+        hikariConfig.setUsername("webuser");
+        hikariConfig.setPassword("zxcvbnm123456");
         hikariConfig.addDataSourceProperty("cachePrespStmts","true");
         hikariConfig.addDataSourceProperty("prepStmtCacheSize","250");
         hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit","2048");
