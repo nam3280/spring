@@ -31,12 +31,16 @@ dependencies {
   implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.27'
   //spring test
   implementation group: 'org.springframework', name: 'spring-test', version: '5.3.27'
-  // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+
   implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
 
   //HikariCP
   implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
 
+  //mapper
+  implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
+
+  //테스트 환경에서 @Log4j2 기능 활용시 필요한 라이브러리
   compileOnly 'org.projectlombok:lombok:1.18.30'
   annotationProcessor 'org.projectlombok:lombok:1.18.30'
   testCompileOnly 'org.projectlombok:lombok:1.18.30'
@@ -45,6 +49,7 @@ dependencies {
   implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
   implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
   implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.22.1'
+
   //jstl
   implementation 'jstl:jstl:1.2'
 

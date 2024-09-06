@@ -89,7 +89,6 @@ public class TodoDAO {
                     .dueDate(rs.getDate("dueDate").toLocalDate())
                     .finished(rs.getBoolean("finished"))
                     .build();
-
         return vo;
     }
 
