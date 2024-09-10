@@ -23,14 +23,18 @@ tasks.withType(JavaCompile) {
 
 dependencies {
   compileOnly('javax.servlet:javax.servlet-api:4.0.1')
-  //spring core
+  //spring
   implementation group: 'org.springframework', name: 'spring-core', version: '5.3.27'
-  //spring context
   implementation group: 'org.springframework', name: 'spring-context', version: '5.3.27'
-  //spring webmvc
   implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.27'
-  //spring test
   implementation group: 'org.springframework', name: 'spring-test', version: '5.3.27'
+  //myBatis
+  implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.27'
+  implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.27'
+
+  implementation 'org.mybatis:mybatis:3.5.9'
+  implementation 'org.mybatis:mybatis-spring:2.0.7'
+  //
 
   implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
 
@@ -52,6 +56,7 @@ dependencies {
 
   //jstl
   implementation 'jstl:jstl:1.2'
+
 
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

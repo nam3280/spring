@@ -10,6 +10,7 @@
      </context-param>
 
     <!--context 감시를 통해 Bean을 사용할 수 있을지 정한다.-->
+    <!--모든 서블릿과 필터들에 공유되는 스프링 컨테이너 생성-->
      <listener>
          <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
      </listener>
