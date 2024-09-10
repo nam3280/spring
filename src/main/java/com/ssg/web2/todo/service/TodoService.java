@@ -1,6 +1,8 @@
 package com.ssg.web2.todo.service;
 
+import com.ssg.web2.todo.domain.MemberVO;
 import com.ssg.web2.todo.domain.TodoVO;
+import com.ssg.web2.todo.dto.MemberDTO;
 import com.ssg.web2.todo.dto.TodoDTO;
 import com.ssg.web2.todo.util.ModelUtil;
 import com.ssg.web2.todo.dao.TodoDAO;

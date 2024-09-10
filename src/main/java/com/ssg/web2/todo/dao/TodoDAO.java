@@ -25,7 +25,7 @@ public class TodoDAO {
 //        return now;
 //    }
 //
-//    //lombok에 의존하는 코드
+//    //lombok에 의존
 //    public String getTime2() throws Exception{
 //        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
 //        @Cleanup PreparedStatement psmt = connection.prepareStatement("select now()");

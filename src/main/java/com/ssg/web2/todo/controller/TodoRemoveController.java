@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "TodoRemoveController", urlPatterns = "/todo/remove")
+@WebServlet(name = "todoRemoveController", urlPatterns = "/todo/remove")
 @Log4j2
 public class TodoRemoveController extends HttpServlet {
 

@@ -23,12 +23,14 @@ public class TodoRegisterController extends HttpServlet {
         log.info("입력화면 register.jsp로 GET");
 
         HttpSession session = req.getSession();
+
         if(session.isNew()){
             log.info("JSESSIONID 쿠키가 새로 생성된 사용자입니다.");
             resp.sendRedirect("/login");
             return ;
         }
 
+        //만약 쿠키를 삭제했다면 여기로 온다.
         if(session.getAttribute("loginInfo") == null){
             log.info("로그인 정보가 없는 사용자입니다.");
             resp.sendRedirect("/login");
