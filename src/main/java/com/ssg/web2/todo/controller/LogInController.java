@@ -37,17 +37,14 @@ public class LogInController extends HttpServlet {
         //session값이 처음으로 들어가는 부분
         //HttpSession로 setAttribute를 사용자 공간에 loginInfo 라는 이름으로 문자열을 보관
 
-        MemberDTO memberDTO = MemberDTO.builder().mid(mid).mpw(mpw).build();
-
-        boolean result = memberService.login(memberDTO);
-
-        if(result) {
+        try {
+            MemberDTO member = memberService.login(mid, mpw);
             HttpSession session = req.getSession();
-            session.setAttribute("loginInfo", str);
+            session.setAttribute("loginInfo", member);
 
             resp.sendRedirect("/todo/list");
+        } catch (Exception e) {
+            resp.sendRedirect("/login?result=error");
         }
-        else
-            resp.sendRedirect("/todo/login");
     }
 }

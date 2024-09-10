@@ -19,14 +19,11 @@ public enum MemberService {
         modelMapper = ModelUtil.INSTANCE.get();
     }
 
-    public boolean login(MemberDTO dto){
-        log.info("dto = " + dto);
-        MemberVO vo = modelMapper.map(dto,MemberVO.class);
+    public MemberDTO login(String mid, String mpw) throws Exception {
+        MemberVO vo = dao.getWithPassword(mid, mpw);
 
-        vo = dao.getWithPassword(vo.getMid(), vo.getMpw());
+        MemberDTO dto = modelMapper.map(vo,MemberDTO.class);
 
-        Optional<String> optionalString = Optional.ofNullable(vo.getMname());
-
-        return optionalString.isPresent();
+        return dto;
     }
 }
