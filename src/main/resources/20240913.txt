@@ -1,0 +1,61 @@
+페이징 처리를 위한 TodoMapper
+글의 수가 많아지면 목록페이지를 가져올 때 문제가 발생할 수 있다.
+- 데이터베이스에서 많은 시간 소요
+- 화면에 가져온 데이터를 출력하는데 많은 시간 소요
+
+많은 데이터를 보여주는 작업은 페이징 처리로 최소한의 데이터들을 보여주는 방식을 채택
+
+페이징 처리 이점
+- 데이터베이스에서 필요한 만큼 최소한의 데이터를 가져온다.
+- 데이터를 출력할 때 출력 시간을 최소화할 수 있다.
+
+MariaDB/MySQL에서 페이징 처리를 위해서는 select 마지막 부분에 limit 사용
+- select * from tbl_todo order by tno desc limit 10; (가져오는 데이터 수)
+- select * from tbl_todo order by tno desc limit 10, 10; (앞 10 : 건너뛰는 데이터 수) (뒤 10 : 가져오는 데이터 수)
+
+- limit 단점 ->limit 뒤에 expression 사용 불가. 계산식을 만들어 값만 줘야 한다.
+
+- count()함수 필요 -> 페이징 처리를 위해서는 전체 데이터의 개수 필요
+ex) 게시물 30개면 3페이지만 출력, 게시물 31개면 4페이지 출력
+
+페이지 처리를 위한 DTO
+페이징 처리는 현재 페이지의 번호, 한 페이지당 보여주는 데이터의 수 필요
+
+count처리
+화면에 페이지 번호들을 구성하기 위해 전체 데이터수를 알아야 한다.
+전체 글 개수를 반환하도록 작업
+
+목록 데이터를 위한 DTO와 서비스 계층
+
+페이지 번호의 계산 (화면에 10개의 페이지 번호 출력 가정)
+- page 1인 경우 : start = 1, end = 10
+- page 10인 경우 : start = 1, end = 10
+- page 11인 경우 : start = 11, end = 20
+
+마지막 페이지/시작 페이지 계산 수식
+this.end = (int)(Math.ceil(this.page / 10.0)) * 10
+this.start = this.end - 9;
+
+end는 last보다 작은 경우 last = end
+int last = (int)(Math.ceil(total/(double)size))
+if(end > last)
+    this.last = end
+
+- 이전(pev)/이후(next) 계산
+이런 페이지가 있는지 존재 여부는 시작 페이지가 1이 아니면 무조건 true
+next일 때 end와 size를 곱한 값보다 전체 개수가 더 많은지 보고 판단
+this.prev = this.start > 1;
+
+브라우저는 특정한 todo 조회 -> 수정/삭제화면 -> 삭제 -> 조회
+
+검색 기능 개발할 때 고려할 사항
+1. 검색 기능의 경우의 수를 구분
+   검색/필터링의 종류 '완료여부, 제목(t), 작성(w)' 구분해서 검색의 실제값은
+   검색/종류에 따라 키워드(keyword)를 이용한다.
+
+2. 검색은 목록 기능에 사용하는 PageRequestDTO 필요한 변수들을 추가해서 구성한다.
+   types
+   keyword
+   finished
+   from
+   to

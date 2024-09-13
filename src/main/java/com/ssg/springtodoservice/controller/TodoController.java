@@ -1,5 +1,6 @@
 package com.ssg.springtodoservice.controller;
 
+import com.ssg.springtodoservice.dto.PageRequestDTO;
 import com.ssg.springtodoservice.dto.TodoDTO;
 import com.ssg.springtodoservice.service.TodoService;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,22 @@ import javax.validation.Valid;
 @RequestMapping("/todo")
 @RequiredArgsConstructor
 public class TodoController {
+
     private final TodoService todoService;
-    @RequestMapping("/list")
-    public void list(Model model){
-       log.info("todo list");
+//    @RequestMapping("/list")
+//    public void list(Model model){
+//       log.info("todo list");
+//       //model.addAttribute("dtoList",todoService.getAll());
+//    }
+
+    @GetMapping("/list")
+    public void list(@Valid PageRequestDTO pageRequestDTO,
+                            BindingResult bindingResult,
+                            Model model){
+        log.info(pageRequestDTO);
+        if(bindingResult.hasErrors())
+            pageRequestDTO = PageRequestDTO.builder().build();
+        model.addAttribute("responseDTO",todoService.getList(pageRequestDTO));
     }
 
     @GetMapping("/register")
@@ -30,7 +43,9 @@ public class TodoController {
         log.info("registerGet");
     }
     @PostMapping("/register")
-    public String registerPost(@Valid TodoDTO todoDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String registerPost(@Valid TodoDTO todoDTO,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes){
         log.info("registerPost");
         log.info("todoDTO" + todoDTO);
         if(bindingResult.hasErrors()){
@@ -41,6 +56,43 @@ public class TodoController {
 
         log.info("todoDTO" + todoDTO);
         todoService.register(todoDTO);
+        return "redirect:/todo/list";
+    }
+
+    @GetMapping({"/read","/modify"})
+    public void read(Long tno, PageRequestDTO pageRequestDTO, Model model){
+        TodoDTO todoDTO = todoService.getOne(tno);
+        log.info(todoDTO);
+        model.addAttribute("dto",todoDTO);
+    }
+
+    @PostMapping("/remove")
+    public String remove(Long tno, PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
+        log.info("remove");
+        log.info("tno = " + tno);
+        todoService.remove(tno);
+        redirectAttributes.addAttribute("page",1);
+        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+        return "redirect:/todo/list";
+    }
+
+    @PostMapping("/modify")
+    public String modify(@Valid TodoDTO todoDTO,
+                         PageRequestDTO pageRequestDTO,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes){
+        log.info("modify");
+
+        if(bindingResult.hasErrors()){
+            log.info("error");
+            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("tno",todoDTO.getTno());
+            return "redirect:/todo/modify";
+        }
+        log.info("todoDTO = " + todoDTO);
+        todoService.modify(todoDTO);
+        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
         return "redirect:/todo/list";
     }
 }

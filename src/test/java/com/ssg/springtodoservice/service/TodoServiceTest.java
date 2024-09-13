@@ -1,5 +1,7 @@
 package com.ssg.springtodoservice.service;
 
+import com.ssg.springtodoservice.dto.PageRequestDTO;
+import com.ssg.springtodoservice.dto.PageResponseDTO;
 import com.ssg.springtodoservice.dto.TodoDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -25,5 +27,12 @@ public class TodoServiceTest {
                       writer("ssg").
                       build();
         todoService.register(dto);
+    }
+
+    @Test
+    public void testPaging(){
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();
+        PageResponseDTO<TodoDTO> responseDTO = todoService.getList(pageRequestDTO);
+        log.info(responseDTO);
     }
 }
