@@ -32,7 +32,7 @@ public class LogInController extends HttpServlet {
         String mid = req.getParameter("mid");
         String mpw = req.getParameter("mpw");
 
-        String str = mid + mpw;
+        //String str = mid + mpw;
 
         //session값이 처음으로 들어가는 부분
         //HttpSession로 setAttribute를 사용자 공간에 loginInfo 라는 이름으로 문자열을 보관
