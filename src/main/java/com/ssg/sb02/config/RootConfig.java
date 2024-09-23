@@ -11,11 +11,11 @@ public class RootConfig {
     //ModelMapper 를 스프링의 빈으로 설정
     @Bean
     public ModelMapper getMapper(){
-            ModelMapper modelMapper = new ModelMapper();
-            modelMapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
-                    .setMatchingStrategy(MatchingStrategies.STRICT);
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
+                .setMatchingStrategy(MatchingStrategies.LOOSE);
 
-            return modelMapper;
+        return modelMapper;
 
     }
 }
